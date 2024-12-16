@@ -1,3 +1,5 @@
 # key_runner
 
-A new Flutter project.
+A platformer game made with flutter where you have to collect key(s) to complete levels.
+WIP
+
