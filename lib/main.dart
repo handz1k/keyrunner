@@ -1,9 +1,12 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:key_runner/src/key_runner.dart';
 
-import 'src/key_runner.dart'; // Add this import
 
 void main() {
-  final game = KeyRunner(); // Modify this line
-  runApp(GameWidget(game: game));
+  runApp(
+    const GameWidget<KeyRunner>.controlled(
+      gameFactory: KeyRunner.new,
+    ),
+  );
 }
