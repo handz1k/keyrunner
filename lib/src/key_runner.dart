@@ -10,7 +10,8 @@ import '../managers/segment_manager.dart';
 import '../objects/ground_block.dart';
 import 'package:flutter/material.dart';
 
-class KeyRunner extends FlameGame with HasCollisionDetection, HasKeyboardHandlerComponents {
+class KeyRunner extends FlameGame
+    with HasCollisionDetection, HasKeyboardHandlerComponents {
   KeyRunner();
 
   final rand = math.Random();
@@ -30,10 +31,11 @@ class KeyRunner extends FlameGame with HasCollisionDetection, HasKeyboardHandler
     initializeGame();
     super.onLoad();
   }
-    @override
-    Color backgroundColor() {
-      return const Color.fromARGB(255, 173, 223, 247);
-    }
+
+  @override
+  Color backgroundColor() {
+    return const Color.fromARGB(255, 173, 223, 247);
+  }
 
   //Code for segment loading from flame documentation https://docs.flame-engine.org/latest/tutorials/platformer/platformer.html
   void loadGameSegments(int segmentIndex, double xPositionOffset) {
@@ -45,7 +47,7 @@ class KeyRunner extends FlameGame with HasCollisionDetection, HasKeyboardHandler
           ),
         Type() => throw UnimplementedError(),
       };
-    world.add(component);
+      world.add(component);
     }
   }
 
@@ -56,8 +58,7 @@ class KeyRunner extends FlameGame with HasCollisionDetection, HasKeyboardHandler
     for (var i = 0; i <= segmentsToLoad; i++) {
       loadGameSegments(i, (640 * i).toDouble());
     }
-    world.add(PlayerRectangle(
-        position: Vector2(width - 40, height - 40),
-        velocity: Vector2((rand.nextDouble() - 0.5) * width, 5).normalized()
-          ..scale(height / 4)));  }
+    world.add(
+        PlayerRectangle(position: Vector2(0, 800), velocity: Vector2(0, 0)));
+  }
 }

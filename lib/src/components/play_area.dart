@@ -9,7 +9,7 @@ class PlayArea extends RectangleComponent with HasGameReference<KeyRunner> {
   PlayArea()
       : super(
           paint: Paint()..color = const Color(0xfff2e8cf),
-          children: [RectangleHitbox()],
+          children: [CircleHitbox()],
         );
 
   @override
