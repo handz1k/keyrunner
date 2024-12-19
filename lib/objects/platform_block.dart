@@ -7,21 +7,21 @@ import 'package:flutter/material.dart';
 import '../src/key_runner.dart';
 import '../managers/segment_manager.dart';
 
-class GroundBlock extends SpriteComponent with HasGameReference<KeyRunner> {
+class PlatformBlock extends SpriteComponent with HasGameReference<KeyRunner> {
   final Vector2 gridPosition;
   double xOffset;
 
   final UniqueKey _blockKey = UniqueKey();
   final Vector2 velocity = Vector2.zero();
 
-  GroundBlock({
+  PlatformBlock({
     required this.gridPosition,
     required this.xOffset,
-  }) : super(size: Vector2.all(64), anchor: Anchor.bottomLeft);
+  }) : super(size: Vector2(64, 64), anchor: Anchor.bottomLeft);
 
   @override
   Future<void> onLoad() async {
-    final groundImage = game.images.fromCache('ground.png');
+    final groundImage = game.images.fromCache('platform.png');
     sprite = Sprite(groundImage);
     position = Vector2(
       (gridPosition.x * size.x) + xOffset,

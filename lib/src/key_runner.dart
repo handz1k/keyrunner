@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/foundation.dart';
+import 'package:key_runner/objects/platform_block.dart';
 import 'dart:math' as math;
 import 'components/components.dart';
-import 'config.dart';
 import '../managers/segment_manager.dart';
 import '../objects/ground_block.dart';
+import '../objects/star.dart';
 import 'package:flutter/material.dart';
 
 class KeyRunner extends FlameGame
@@ -24,10 +24,9 @@ class KeyRunner extends FlameGame
 
   @override
   FutureOr<void> onLoad() async {
-    await images.loadAll([
-      'ground.png',
-    ]);
+    await images.loadAll(['ground.png', 'star.png', 'platform.png']);
     camera.viewfinder.anchor = Anchor.topLeft;
+    debugMode = true;
     initializeGame();
     super.onLoad();
   }
@@ -41,11 +40,19 @@ class KeyRunner extends FlameGame
   void loadGameSegments(int segmentIndex, double xPositionOffset) {
     for (final block in segments[segmentIndex]) {
       final component = switch (block.blockType) {
-        const (GroundBlock) => GroundBlock(
+        GroundBlock => GroundBlock(
             gridPosition: block.gridPosition,
             xOffset: xPositionOffset,
           ),
-        Type() => throw UnimplementedError(),
+        Star => Star(
+            gridPosition: block.gridPosition,
+            xOffset: xPositionOffset,
+          ),
+        PlatformBlock => PlatformBlock(
+            gridPosition: block.gridPosition,
+            xOffset: xPositionOffset,
+          ),
+        _ => throw Exception('Unknown block type: ${block.blockType}'),
       };
       world.add(component);
     }

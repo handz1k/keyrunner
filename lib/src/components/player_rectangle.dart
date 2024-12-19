@@ -3,15 +3,16 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:key_runner/objects/ground_block.dart';
+import 'package:key_runner/objects/platform_block.dart';
+import 'package:key_runner/objects/star.dart';
 import '../key_runner.dart';
-import 'play_area.dart';
 
-class PlayerRectangle extends RectangleComponent
+class PlayerRectangle extends CircleComponent
     with CollisionCallbacks, TapCallbacks, HasGameRef<KeyRunner> {
   PlayerRectangle({required this.velocity, required super.position})
       : super(
             anchor: Anchor.topLeft,
-            size: Vector2.all(40),
+            radius: 20,
             paint: Paint()
               ..color = const Color(0xff1e6091)
               ..style = PaintingStyle.fill,
@@ -20,10 +21,10 @@ class PlayerRectangle extends RectangleComponent
   final Vector2 velocity;
   final double gravity = 9.8;
   final double force = 700;
-  final double termVelocity = 100;
+  final double termVelocity = 300;
   bool hasJumped = false;
   bool onGround = false;
-  final double moveSpeed = 100;
+  final double moveSpeed = 190;
 
   @override
   void update(double dt) {
@@ -49,23 +50,24 @@ class PlayerRectangle extends RectangleComponent
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is GroundBlock) {
+    if (other is GroundBlock || other is PlatformBlock) {
       final intersectionPoint = intersectionPoints.first;
+
       if (velocity.y > 0 &&
-          intersectionPoint.y >= other.absoluteTopLeftPosition.y - 40 &&
-          intersectionPoint.x > other.absoluteTopLeftPosition.x) {
+          position.y < other.height + other.y - 40 &&
+          intersectionPoint.y >= other.absoluteTopLeftPosition.y &&
+          intersectionPoints.last.x > other.absoluteTopLeftPosition.x) {
         velocity.y = 0;
-        position.y = other.y - other.size.y - size.y - 1;
+        position.y = other.y - other.height - radius * 2 - 0.5;
         onGround = true;
-      } else if (velocity.y < 0 &&
-          (intersectionPoint.y > other.absoluteTopLeftPosition.y)) {
+      } else if (velocity.y < 0 && (intersectionPoint.y >= other.y)) {
         velocity.y = 0;
-        position.y = other.y + other.size.y;
+        position.y = other.y + other.size.y - other.height;
+        onGround = false;
       }
-      if (intersectionPoint.x <= other.absoluteTopLeftPosition.x) {
-        velocity.x = 0;
-        position.x = other.x - other.size.x + 23;
-      }
+    }
+    if (other is Star) {
+      debugPrint('winner');
     }
 
     super.onCollisionStart(intersectionPoints, other);
