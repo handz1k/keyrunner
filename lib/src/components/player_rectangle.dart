@@ -25,6 +25,7 @@ class PlayerRectangle extends CircleComponent
   bool hasJumped = false;
   bool onGround = false;
   final double moveSpeed = 190;
+  final Vector2 up = Vector2(0, -1);
 
   @override
   void update(double dt) {
@@ -47,30 +48,26 @@ class PlayerRectangle extends CircleComponent
     hasJumped = true;
   }
 
+  //collision function from flame docs
   @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is GroundBlock || other is PlatformBlock) {
-      final intersectionPoint = intersectionPoints.first;
+      if (intersectionPoints.length == 2) {
+        final mid = (intersectionPoints.elementAt(0) +
+                intersectionPoints.elementAt(1)) /
+            2;
+        final collisionNormal = absoluteCenter - mid;
+        final separationDistance = (size.x / 2) - collisionNormal.length;
+        collisionNormal.normalize();
 
-      if (velocity.y > 0 &&
-          position.y < other.height + other.y - 40 &&
-          intersectionPoint.y >= other.absoluteTopLeftPosition.y &&
-          intersectionPoints.last.x > other.absoluteTopLeftPosition.x) {
-        velocity.y = 0;
-        position.y = other.y - other.height - radius * 2 - 0.5;
-        onGround = true;
-      } else if (velocity.y < 0 && (intersectionPoint.y >= other.y)) {
-        velocity.y = 0;
-        position.y = other.y + other.size.y - other.height;
-        onGround = false;
+        if (up.dot(collisionNormal) > 0.9) {
+          onGround = true;
+        }
+
+        position += collisionNormal.scaled(separationDistance);
       }
     }
-    if (other is Star) {
-      debugPrint('winner');
-    }
-
-    super.onCollisionStart(intersectionPoints, other);
+    super.onCollision(intersectionPoints, other);
   }
 
   void gravityMethod(double dt) {
