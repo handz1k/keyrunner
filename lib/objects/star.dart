@@ -28,7 +28,7 @@ class Star extends SpriteComponent with HasGameReference<KeyRunner> {
       SizeEffect.by(
         Vector2(-24, -24),
         EffectController(
-          duration: .75,
+          duration: 2,
           reverseDuration: .5,
           infinite: true,
           curve: Curves.easeOut,

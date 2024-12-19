@@ -14,7 +14,7 @@ class PlayerRectangle extends CircleComponent
             anchor: Anchor.topLeft,
             radius: 20,
             paint: Paint()
-              ..color = const Color(0xff1e6091)
+              ..color = const Color.fromARGB(255, 255, 0, 0)
               ..style = PaintingStyle.fill,
             children: [CircleHitbox()]);
 
@@ -32,8 +32,8 @@ class PlayerRectangle extends CircleComponent
     super.update(dt);
     velocity.x = moveSpeed;
     position += velocity * dt;
-
     gravityMethod(dt);
+
     if (hasJumped) {
       if (onGround) {
         velocity.y = -force;

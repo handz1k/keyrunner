@@ -2,9 +2,10 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame/parallax.dart';
 import 'package:key_runner/objects/platform_block.dart';
+import 'package:key_runner/src/components/components.dart';
 import 'dart:math' as math;
-import 'components/components.dart';
 import '../managers/segment_manager.dart';
 import '../objects/ground_block.dart';
 import '../objects/star.dart';
@@ -26,9 +27,15 @@ class KeyRunner extends FlameGame
   FutureOr<void> onLoad() async {
     await images.loadAll(['ground.png', 'star.png', 'platform.png']);
     camera.viewfinder.anchor = Anchor.topLeft;
-    debugMode = true;
+    //debugMode = true;
     initializeGame();
+    ParallaxComponent cloudBackground = await loadParallaxComponent([
+      ParallaxImageData('Clouds1.png'),
+      ParallaxImageData('Clouds2.png'),
+      ParallaxImageData('Clouds4.png'),
+    ], baseVelocity: Vector2(4, 0), velocityMultiplierDelta: Vector2(1.6, 1.0));
     super.onLoad();
+    add(cloudBackground);
   }
 
   @override
