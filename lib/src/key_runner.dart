@@ -8,11 +8,11 @@ import 'package:key_runner/src/components/components.dart';
 import 'dart:math' as math;
 import '../managers/segment_manager.dart';
 import '../objects/ground_block.dart';
-import '../objects/star.dart';
+import '../objects/diamond.dart';
 import 'package:flutter/material.dart';
 
 class KeyRunner extends FlameGame
-    with HasCollisionDetection, HasKeyboardHandlerComponents {
+    with HasCollisionDetection, TapCallbacks, HasKeyboardHandlerComponents {
   KeyRunner();
 
   final rand = math.Random();
@@ -22,6 +22,7 @@ class KeyRunner extends FlameGame
 
   double get width => size.x;
   double get height => size.y;
+  bool hasJumped = false;
 
   @override
   FutureOr<void> onLoad() async {
@@ -39,8 +40,8 @@ class KeyRunner extends FlameGame
   }
 
   @override
-  Color backgroundColor() {
-    return const Color.fromARGB(255, 173, 223, 247);
+  void onTapDown(TapDownEvent event) {
+    hasJumped = true;
   }
 
   //Code for segment loading from flame documentation https://docs.flame-engine.org/latest/tutorials/platformer/platformer.html
@@ -72,7 +73,9 @@ class KeyRunner extends FlameGame
     for (var i = 0; i <= segmentsToLoad; i++) {
       loadGameSegments(i, (640 * i).toDouble());
     }
-    world.add(
-        PlayerRectangle(position: Vector2(0, 800), velocity: Vector2(0, 0)));
+    world.add(PlayerRectangle(
+        position: Vector2(0, 800),
+        velocity: Vector2(0, 0),
+        hasJumped: hasJumped));
   }
 }

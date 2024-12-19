@@ -4,12 +4,13 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:key_runner/objects/ground_block.dart';
 import 'package:key_runner/objects/platform_block.dart';
-import 'package:key_runner/objects/star.dart';
+import 'package:key_runner/objects/diamond.dart';
 import '../key_runner.dart';
 
 class PlayerRectangle extends CircleComponent
     with CollisionCallbacks, TapCallbacks, HasGameRef<KeyRunner> {
-  PlayerRectangle({required this.velocity, required super.position})
+  PlayerRectangle(
+      {required this.velocity, required super.position, required hasJumped})
       : super(
             anchor: Anchor.topLeft,
             radius: 20,
@@ -22,7 +23,6 @@ class PlayerRectangle extends CircleComponent
   final double gravity = 9.8;
   final double force = 700;
   final double termVelocity = 300;
-  bool hasJumped = false;
   bool onGround = false;
   final double moveSpeed = 190;
   final Vector2 up = Vector2(0, -1);
@@ -34,18 +34,13 @@ class PlayerRectangle extends CircleComponent
     position += velocity * dt;
     gravityMethod(dt);
 
-    if (hasJumped) {
+    if (gameRef.hasJumped) {
       if (onGround) {
         velocity.y = -force;
         onGround = false;
       }
-      hasJumped = false;
+      gameRef.hasJumped = false;
     }
-  }
-
-  @override
-  void onTapDown(TapDownEvent event) {
-    hasJumped = true;
   }
 
   //collision function from flame docs

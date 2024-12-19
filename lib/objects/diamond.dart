@@ -26,12 +26,9 @@ class Star extends SpriteComponent with HasGameReference<KeyRunner> {
     add(RectangleHitbox(collisionType: CollisionType.passive));
     add(
       SizeEffect.by(
-        Vector2(-24, -24),
+        Vector2(-25, -25),
         EffectController(
-          duration: 2,
-          reverseDuration: .5,
-          infinite: true,
-          curve: Curves.easeOut,
+          duration: 0.5,
         ),
       ),
     );
