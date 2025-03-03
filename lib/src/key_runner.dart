@@ -3,13 +3,16 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/parallax.dart';
+import 'package:get/get.dart';
 import 'package:key_runner/objects/platform_block.dart';
-import 'package:key_runner/src/components/components.dart';
+import 'package:key_runner/src/components/player.dart';
 import 'dart:math' as math;
 import '../managers/segment_manager.dart';
 import '../objects/ground_block.dart';
 import '../objects/diamond.dart';
 import 'package:flutter/material.dart';
+import '../src/components/level.dart';
+import '../views/level_screen.dart';
 
 class KeyRunner extends FlameGame
     with HasCollisionDetection, TapCallbacks, HasKeyboardHandlerComponents {
@@ -24,12 +27,21 @@ class KeyRunner extends FlameGame
   double get height => size.y;
   bool hasJumped = false;
 
+  final List<Level> levels = [
+    Level(levelNumber: 1, segmentsToLoad: 5),
+    Level(levelNumber: 2, segmentsToLoad: 6),
+    Level(levelNumber: 3, segmentsToLoad: 7),
+  ];
+
+  final levelService = Get.find<LevelService>();
+  Level get currentLevelData => levels[levelService.currentLevel - 1];
+
   @override
   FutureOr<void> onLoad() async {
     await images.loadAll(['ground.png', 'star.png', 'platform.png']);
     camera.viewfinder.anchor = Anchor.topLeft;
     //debugMode = true;
-    initializeGame();
+    initializeGame(currentLevelData.levelNumber);
     ParallaxComponent cloudBackground = await loadParallaxComponent([
       ParallaxImageData('Clouds1.png'),
       ParallaxImageData('Clouds2.png'),
@@ -46,7 +58,12 @@ class KeyRunner extends FlameGame
 
   //Code for segment loading from flame documentation https://docs.flame-engine.org/latest/tutorials/platformer/platformer.html
   void loadGameSegments(int segmentIndex, double xPositionOffset) {
-    for (final block in segments[segmentIndex]) {
+    final availableSegments = levelSegments[levelService.currentLevel] ?? [];
+    if (segmentIndex < 0 ||
+        segmentIndex >= levelSegments[levelService.currentLevel]!.length) {
+      return;
+    }
+    for (final block in availableSegments[segmentIndex]) {
       final component = switch (block.blockType) {
         GroundBlock => GroundBlock(
             gridPosition: block.gridPosition,
@@ -66,9 +83,11 @@ class KeyRunner extends FlameGame
     }
   }
 
-  void initializeGame() {
-    final segmentsToLoad = (size.x / 640).ceil();
-    segmentsToLoad.clamp(0, segments.length);
+  void initializeGame(int level) {
+    final segmentsToLoad = levels[level - 1].segmentsToLoad;
+    final availableSegments = levelSegments[levelService.currentLevel] ?? [];
+
+    segmentsToLoad.clamp(0, availableSegments.length);
 
     for (var i = 0; i <= segmentsToLoad; i++) {
       loadGameSegments(i, (640 * i).toDouble());

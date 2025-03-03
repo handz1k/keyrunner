@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../src/key_runner.dart';
 import '../managers/segment_manager.dart';
+import '../views/level_screen.dart';
 
 class PlatformBlock extends SpriteComponent with HasGameReference<KeyRunner> {
   final Vector2 gridPosition;
@@ -13,6 +15,7 @@ class PlatformBlock extends SpriteComponent with HasGameReference<KeyRunner> {
 
   final UniqueKey _blockKey = UniqueKey();
   final Vector2 velocity = Vector2.zero();
+  final levelService = Get.find<LevelService>();
 
   PlatformBlock({
     required this.gridPosition,
@@ -43,7 +46,7 @@ class PlatformBlock extends SpriteComponent with HasGameReference<KeyRunner> {
       removeFromParent();
       if (gridPosition.x == 0) {
         game.loadGameSegments(
-          Random().nextInt(segments.length),
+          Random().nextInt(levelSegments[levelService.currentLevel]!.length),
           game.lastBlockXPosition,
         );
       }

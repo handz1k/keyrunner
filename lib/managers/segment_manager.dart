@@ -6,19 +6,14 @@ import '../objects/ground_block.dart';
 class Block {
   final Vector2 gridPosition;
   final Type blockType;
-  final double level = 1;
   Block(this.gridPosition, this.blockType);
 }
 
-final segments = [
-  segment0,
-  segment1,
-  segment2,
-  segment3,
-  segment4,
-  segment5,
-  segment6,
-];
+final Map<int, List<List<Block>>> levelSegments = {
+  1: [segment0, segment1],
+  2: [segment2, segment3],
+  3: [segment4, segment5, segment6],
+};
 
 final segment0 = [
   Block(Vector2(0, 0), GroundBlock),
