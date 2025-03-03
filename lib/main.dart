@@ -28,7 +28,7 @@ class StartScreen extends StatelessWidget {
           // Background image
           Positioned.fill(
             child: Image.asset(
-              "../assets/images/background.png", // Change to your actual image path
+              "../assets/images/background.png",
               fit: BoxFit.cover,
             ),
           ),
@@ -41,9 +41,7 @@ class StartScreen extends StatelessWidget {
                 const Text(
                   "Keyrunner",
                   style: TextStyle(
-                      fontSize: 64,
-                      color: Color.fromARGB(
-                          255, 73, 72, 72)), // White text for contrast
+                      fontSize: 64, color: Color.fromARGB(255, 73, 72, 72)),
                 ),
                 const Padding(padding: EdgeInsets.all(16)),
                 GameButton(
