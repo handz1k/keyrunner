@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:key_runner/objects/platform_block.dart';
 import '../objects/diamond.dart';
 import '../objects/ground_block.dart';
-import '../objects/platform_block.dart';
 
 class Block {
   final Vector2 gridPosition;

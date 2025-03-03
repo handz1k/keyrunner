@@ -73,7 +73,7 @@ class KeyRunner extends FlameGame
     for (var i = 0; i <= segmentsToLoad; i++) {
       loadGameSegments(i, (640 * i).toDouble());
     }
-    world.add(PlayerRectangle(
+    world.add(Player(
         position: Vector2(0, 800),
         velocity: Vector2(0, 0),
         hasJumped: hasJumped));

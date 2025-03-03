@@ -6,10 +6,9 @@ import 'package:key_runner/objects/ground_block.dart';
 import 'package:key_runner/objects/platform_block.dart';
 import '../key_runner.dart';
 
-class PlayerRectangle extends CircleComponent
+class Player extends CircleComponent
     with CollisionCallbacks, TapCallbacks, HasGameRef<KeyRunner> {
-  PlayerRectangle(
-      {required this.velocity, required super.position, required hasJumped})
+  Player({required this.velocity, required super.position, required hasJumped})
       : super(
             anchor: Anchor.topLeft,
             radius: 20,
