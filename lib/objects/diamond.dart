@@ -39,5 +39,8 @@ class Star extends SpriteComponent with HasGameReference<KeyRunner> {
     position += velocity * dt;
     if (position.x < -size.x) removeFromParent();
     super.update(dt);
+    if (game.health <= 0) {
+      removeFromParent();
+    }
   }
 }

@@ -18,7 +18,8 @@ class LevelScreen extends StatelessWidget {
       return [
         const Padding(padding: EdgeInsets.all(16)),
         GameButton(
-            text: "${level + 1}",
+            text:
+                "Level ${level + 1} (${levelService.completedLevels.contains(level) ? "Completed" : "Not completed"})",
             onPressed: () {
               levelService.currentLevel = level + 1;
               Get.to(GameScreen());
@@ -40,16 +41,28 @@ class GameScaffold extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image
           Positioned.fill(
             child: Image.asset(
               "../assets/images/background.png",
               fit: BoxFit.cover,
             ),
           ),
-          // Main Content
+          Column(
+            children: [
+              TextButton(
+                onPressed: () => Get.to(StartScreen()),
+                child: const Text(
+                  "Main menu",
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Color.fromARGB(255, 73, 72, 72),
+                  ),
+                ),
+              )
+            ],
+          ),
           Center(
-            child: Column(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: content,

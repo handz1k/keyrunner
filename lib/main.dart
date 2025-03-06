@@ -25,14 +25,12 @@ class StartScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Image.asset(
               "../assets/images/background.png",
               fit: BoxFit.cover,
             ),
           ),
-          // Main content
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,10 +44,6 @@ class StartScreen extends StatelessWidget {
                 const Padding(padding: EdgeInsets.all(16)),
                 GameButton(
                   text: "Start",
-                  onPressed: () => Get.to(() => GameScreen()),
-                ),
-                GameButton(
-                  text: "Choose level",
                   onPressed: () => Get.to(() => LevelScreen()),
                 )
               ],

@@ -4,6 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:key_runner/objects/ground_block.dart';
 import 'package:key_runner/objects/platform_block.dart';
+import 'package:key_runner/objects/diamond.dart';
 import '../key_runner.dart';
 
 class Player extends CircleComponent
@@ -41,6 +42,13 @@ class Player extends CircleComponent
       }
       gameRef.hasJumped = false;
     }
+    if (position.y > game.size.y + size.y) {
+      game.health = 0;
+    }
+
+    if (game.health <= 0) {
+      removeFromParent();
+    }
   }
 
   //collision function from flame docs
@@ -63,6 +71,11 @@ class Player extends CircleComponent
         position += collisionNormal.scaled(separationDistance);
       }
     }
+    if (other is Star) {
+      other.removeFromParent();
+      game.diamondsCollected++;
+    }
+
     super.onCollision(intersectionPoints, other);
   }
 

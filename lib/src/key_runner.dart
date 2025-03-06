@@ -6,6 +6,7 @@ import 'package:flame/parallax.dart';
 import 'package:get/get.dart';
 import 'package:key_runner/objects/platform_block.dart';
 import 'package:key_runner/src/components/player.dart';
+import 'package:key_runner/views/gameover_screen.dart';
 import 'dart:math' as math;
 import '../managers/segment_manager.dart';
 import '../objects/ground_block.dart';
@@ -26,6 +27,9 @@ class KeyRunner extends FlameGame
   double get width => size.x;
   double get height => size.y;
   bool hasJumped = false;
+  int diamondsCollected = 0;
+  int health = 1;
+  bool isGameOver = false;
 
   final List<Level> levels = [
     Level(levelNumber: 1, segmentsToLoad: 5),
@@ -83,6 +87,15 @@ class KeyRunner extends FlameGame
     }
   }
 
+  @override
+  void update(double dt) {
+    if (health <= 0 && !isGameOver) {
+      isGameOver = true;
+      Get.off(() => GameOverScreen(game: this));
+    }
+    super.update(dt);
+  }
+
   void initializeGame(int level) {
     final segmentsToLoad = levels[level - 1].segmentsToLoad;
     final availableSegments = levelSegments[levelService.currentLevel] ?? [];
@@ -96,5 +109,12 @@ class KeyRunner extends FlameGame
         position: Vector2(0, 800),
         velocity: Vector2(0, 0),
         hasJumped: hasJumped));
+  }
+
+  void reset() {
+    diamondsCollected = 0;
+    isGameOver = false;
+    health = 1;
+    initializeGame(currentLevelData.levelNumber);
   }
 }
