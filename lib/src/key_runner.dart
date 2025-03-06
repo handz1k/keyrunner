@@ -10,7 +10,7 @@ import 'package:key_runner/views/gameover_screen.dart';
 import 'dart:math' as math;
 import '../managers/segment_manager.dart';
 import '../objects/ground_block.dart';
-import '../objects/diamond.dart';
+import '../objects/key.dart';
 import 'package:flutter/material.dart';
 import '../src/components/level.dart';
 import '../views/level_screen.dart';
@@ -27,7 +27,7 @@ class KeyRunner extends FlameGame
   double get width => size.x;
   double get height => size.y;
   bool hasJumped = false;
-  int diamondsCollected = 0;
+  int keysCollected = 0;
   int health = 1;
   bool isGameOver = false;
 
@@ -42,7 +42,7 @@ class KeyRunner extends FlameGame
 
   @override
   FutureOr<void> onLoad() async {
-    await images.loadAll(['ground.png', 'star.png', 'platform.png']);
+    await images.loadAll(['ground.png', 'key.png', 'platform.png']);
     camera.viewfinder.anchor = Anchor.topLeft;
     //debugMode = true;
     initializeGame(currentLevelData.levelNumber);
@@ -73,7 +73,7 @@ class KeyRunner extends FlameGame
             gridPosition: block.gridPosition,
             xOffset: xPositionOffset,
           ),
-        Star => Star(
+        GoldKey => GoldKey(
             gridPosition: block.gridPosition,
             xOffset: xPositionOffset,
           ),
@@ -112,7 +112,7 @@ class KeyRunner extends FlameGame
   }
 
   void reset() {
-    diamondsCollected = 0;
+    keysCollected = 0;
     isGameOver = false;
     health = 1;
     initializeGame(currentLevelData.levelNumber);

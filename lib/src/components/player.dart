@@ -4,7 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:key_runner/objects/ground_block.dart';
 import 'package:key_runner/objects/platform_block.dart';
-import 'package:key_runner/objects/diamond.dart';
+import 'package:key_runner/objects/key.dart';
 import '../key_runner.dart';
 
 class Player extends CircleComponent
@@ -71,9 +71,9 @@ class Player extends CircleComponent
         position += collisionNormal.scaled(separationDistance);
       }
     }
-    if (other is Star) {
+    if (other is GoldKey) {
       other.removeFromParent();
-      game.diamondsCollected++;
+      game.keysCollected++;
     }
 
     super.onCollision(intersectionPoints, other);
