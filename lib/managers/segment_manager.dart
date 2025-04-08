@@ -19,8 +19,7 @@ final segment0 = [
   Block(Vector2(0, 0), GroundBlock),
   Block(Vector2(1, 0), GroundBlock),
   Block(Vector2(2, 0), GroundBlock),
-  Block(Vector2(4, 2), PlatformBlock),
-  Block(Vector2(7, 3), GroundBlock),
+  Block(Vector2(5, 2), PlatformBlock),
   Block(Vector2(8, 3), GroundBlock),
 ];
 
@@ -30,32 +29,26 @@ final segment1 = [
   Block(Vector2(2, 4), GroundBlock),
   Block(Vector2(3, 6), PlatformBlock),
   Block(Vector2(6, 6), GroundBlock),
-  Block(Vector2(7, 4), GroundBlock),
+  Block(Vector2(6, 7), GroundBlock),
+  Block(Vector2(6, 8), GroundBlock),
   Block(Vector2(8, 4), GroundBlock),
-  Block(Vector2(8, 5), GoldKey),
+  Block(Vector2(9, 4), GroundBlock),
+  Block(Vector2(9, 5), GoldKey),
 ];
 
 final segment2 = [
   Block(Vector2(0, 0), GroundBlock),
   Block(Vector2(1, 0), GroundBlock),
   Block(Vector2(2, 0), GroundBlock),
-  Block(Vector2(3, 0), GroundBlock),
-  Block(Vector2(4, 0), PlatformBlock),
-  Block(Vector2(5, 1), PlatformBlock),
+  Block(Vector2(6, 1), PlatformBlock),
   Block(Vector2(7, 1), PlatformBlock),
-  Block(Vector2(8, 0), GroundBlock),
 ];
 
 final segment3 = [
-  Block(Vector2(0, 0), GroundBlock),
-  Block(Vector2(1, 0), GroundBlock),
+  Block(Vector2(1, 2), GroundBlock),
   Block(Vector2(2, 1), PlatformBlock),
-  Block(Vector2(3, 2), PlatformBlock),
-  Block(Vector2(5, 4), PlatformBlock),
   Block(Vector2(7, 0), GroundBlock),
-  Block(Vector2(8, 0), GroundBlock),
-  Block(Vector2(9, 0), GroundBlock),
-  Block(Vector2(9, 1), GoldKey),
+  Block(Vector2(7, 1), GoldKey),
 ];
 
 final segment4 = [
@@ -63,18 +56,12 @@ final segment4 = [
   Block(Vector2(1, 0), GroundBlock),
   Block(Vector2(3, 1), PlatformBlock),
   Block(Vector2(4, 2), PlatformBlock),
-  Block(Vector2(5, 3), GroundBlock),
-  Block(Vector2(6, 0), GroundBlock),
-  Block(Vector2(7, 0), GroundBlock),
   Block(Vector2(8, 0), GroundBlock),
 ];
 
 final segment5 = [
-  Block(Vector2(0, 0), GroundBlock),
-  Block(Vector2(1, 0), GroundBlock),
   Block(Vector2(2, 0), GroundBlock),
   Block(Vector2(3, 0), GroundBlock),
-  Block(Vector2(4, 1), PlatformBlock),
   Block(Vector2(5, 2), PlatformBlock),
   Block(Vector2(7, 1), PlatformBlock),
   Block(Vector2(8, 0), GroundBlock),
@@ -83,10 +70,7 @@ final segment5 = [
 
 final segment6 = [
   Block(Vector2(0, 0), GroundBlock),
-  Block(Vector2(1, 1), PlatformBlock),
   Block(Vector2(2, 2), PlatformBlock),
-  Block(Vector2(4, 2), PlatformBlock),
-  Block(Vector2(5, 1), PlatformBlock),
   Block(Vector2(6, 0), GroundBlock),
   Block(Vector2(7, 0), GroundBlock),
   Block(Vector2(8, 0), GroundBlock),
