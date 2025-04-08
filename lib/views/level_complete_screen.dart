@@ -5,6 +5,9 @@ import 'package:key_runner/src/key_runner.dart';
 import 'package:key_runner/views/level_screen.dart';
 import 'package:key_runner/widgets/game_button.dart';
 import '../models/breakpoints.dart';
+import '../services/levelService.dart';
+
+final levelService = Get.find<LevelService>();
 
 class LevelCompleteScreen extends StatelessWidget {
   final KeyRunner game;
@@ -47,13 +50,15 @@ class LevelCompleteScreen extends StatelessWidget {
                             },
                           ),
                           const Padding(padding: EdgeInsets.all(16)),
-                          GameButton(
-                            text: "Next level",
-                            onPressed: () {
-                              game.nextLevel();
-                              Get.offAll(() => GameScreen());
-                            },
-                          ),
+                          (levelService.completedLevels.length == 3)
+                              ? const Text('')
+                              : GameButton(
+                                  text: "Next level",
+                                  onPressed: () {
+                                    game.nextLevel();
+                                    Get.offAll(() => GameScreen());
+                                  },
+                                )
                         ],
                       ),
                     ],
@@ -95,13 +100,15 @@ class LevelCompleteScreen extends StatelessWidget {
                               },
                             ),
                             const Padding(padding: EdgeInsets.all(16)),
-                            GameButton(
-                              text: "Next level",
-                              onPressed: () {
-                                game.nextLevel();
-                                Get.offAll(() => GameScreen());
-                              },
-                            ),
+                            (levelService.completedLevels.length == 3)
+                                ? const Text('')
+                                : GameButton(
+                                    text: "Next level",
+                                    onPressed: () {
+                                      game.nextLevel();
+                                      Get.offAll(() => GameScreen());
+                                    },
+                                  ) // Or any other fallback widget
                           ],
                         ),
                       ),
