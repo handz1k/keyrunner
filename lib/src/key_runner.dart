@@ -34,6 +34,8 @@ class KeyRunner extends FlameGame
   late final World world;
   late final CameraComponent cameraComponent;
   late Player player;
+  var _dtSum = 0.0;
+  final fixedRate = 1 / 60;
 
   final List<Level> levels = [
     Level(levelNumber: 1, segmentsToLoad: 5),
@@ -50,12 +52,12 @@ class KeyRunner extends FlameGame
     world = World();
     cameraComponent = CameraComponent.withFixedResolution(
       world: world,
-      width: 1080,
+      width: 1280,
       height: 800,
     );
 
     addAll([cameraComponent, world]);
-    //debugMode = true;
+    // debugMode = true;
     initializeGame(currentLevelData.levelNumber);
     ParallaxComponent cloudBackground = await loadParallaxComponent([
       ParallaxImageData('Clouds1.png'),
@@ -108,7 +110,11 @@ class KeyRunner extends FlameGame
       levelService.completedLevels.add(currentLevelData.levelNumber - 1);
       Get.off(() => LevelCompleteScreen(game: this));
     }
-    super.update(dt);
+    _dtSum += dt;
+    if (_dtSum > fixedRate) {
+      super.update(fixedRate);
+      _dtSum -= fixedRate;
+    }
   }
 
   void initializeGame(int level) {
@@ -120,8 +126,17 @@ class KeyRunner extends FlameGame
     for (var i = 0; i <= segmentsToLoad; i++) {
       loadGameSegments(i, (640 * i).toDouble());
     }
+    final groundBlocks = world.children.whereType<GroundBlock>();
+
+    final firstGround = groundBlocks
+        .where((block) => block.position.x <= 0 + block.size.x)
+        .reduce((a, b) => a.position.y < b.position.y ? a : b);
+
+    final blockTopY = firstGround.position.y;
+    final blockSideX = firstGround.position.x;
+
     player = Player(
-      position: Vector2(0, 800),
+      position: Vector2(blockSideX - 50, blockTopY - 200),
       velocity: Vector2(0, 0),
       hasJumped: false,
     );

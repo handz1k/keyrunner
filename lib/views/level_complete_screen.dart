@@ -108,7 +108,7 @@ class LevelCompleteScreen extends StatelessWidget {
                                       game.nextLevel();
                                       Get.offAll(() => GameScreen());
                                     },
-                                  ) // Or any other fallback widget
+                                  )
                           ],
                         ),
                       ),

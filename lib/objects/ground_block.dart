@@ -43,7 +43,6 @@ class GroundBlock extends SpriteComponent with HasGameReference<KeyRunner> {
     position += velocity * dt;
 
     if (position.x < -size.x) {
-      removeFromParent();
       if (gridPosition.x == 0) {
         game.loadGameSegments(
           Random().nextInt(levelSegments[levelService.currentLevel]!.length),
@@ -56,9 +55,7 @@ class GroundBlock extends SpriteComponent with HasGameReference<KeyRunner> {
         game.lastBlockXPosition = position.x + size.x - 10;
       }
     }
-    if (game.health <= 0) {
-      removeFromParent();
-    }
+    if (game.health <= 0) {}
 
     super.update(dt);
   }

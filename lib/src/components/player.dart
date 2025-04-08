@@ -22,10 +22,10 @@ class Player extends CircleComponent
 
   final Vector2 velocity;
   final double gravity = 9.8;
-  final double force = 700;
-  final double termVelocity = 300;
+  final double force = 450;
+  final double termVelocity = 175;
   bool onGround = false;
-  final double moveSpeed = 190;
+  final double moveSpeed = 140;
   final Vector2 up = Vector2(0, -1);
 
   final levelService = Get.find<LevelService>();
@@ -34,10 +34,12 @@ class Player extends CircleComponent
   void update(double dt) {
     super.update(dt);
     bool wasOnGround = onGround;
-    velocity.x = moveSpeed;
     position += velocity * dt;
     gravityMethod(dt);
 
+    if (onGround) {
+      velocity.x = moveSpeed;
+    }
     if (gameRef.hasJumped && wasOnGround) {
       if (onGround) {
         velocity.y = -force;

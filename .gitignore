@@ -29,6 +29,11 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
+.firebase
+.firebaserc
+firebase.json
+firebase-tools**
+
 /build/
 
 # Symbolication related
