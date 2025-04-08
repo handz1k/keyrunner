@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:key_runner/main.dart';
+import 'package:key_runner/views/start_screen.dart';
 import 'package:key_runner/widgets/game_button.dart';
-
-class LevelService {
-  final totalLevels = 3;
-  final completedLevels = Set();
-  var currentLevel = 0;
-}
+import '../models/breakpoints.dart';
+import '../services/levelService.dart';
+import 'game_screen.dart';
 
 class LevelScreen extends StatelessWidget {
   final levelService = Get.find<LevelService>();
@@ -26,9 +23,8 @@ class LevelScreen extends StatelessWidget {
             })
       ];
     }).toList();
-    return GameScaffold(content: [
-      ...levels,
-    ]);
+
+    return GameScaffold(content: levels);
   }
 }
 
@@ -39,36 +35,73 @@ class GameScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              "../assets/images/background.png",
-              fit: BoxFit.cover,
-            ),
-          ),
-          Column(
-            children: [
-              TextButton(
-                onPressed: () => Get.to(StartScreen()),
-                child: const Text(
-                  "Main menu",
-                  style: TextStyle(
-                    fontSize: 32,
-                    color: Color.fromARGB(255, 73, 72, 72),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth > Breakpoints.xl) {
+            return Stack(
+              children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    "../assets/images/background.png",
+                    fit: BoxFit.cover,
                   ),
                 ),
-              )
-            ],
-          ),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: content,
-            ),
-          ),
-        ],
+                Column(
+                  children: [
+                    TextButton(
+                      onPressed: () => Get.to(StartScreen()),
+                      child: const Text(
+                        "Main menu",
+                        style: TextStyle(
+                          fontSize: 32,
+                          color: Color.fromARGB(255, 73, 72, 72),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: content,
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return Stack(
+              children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    "../assets/images/background.png",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Column(
+                  children: [
+                    TextButton(
+                      onPressed: () => Get.to(StartScreen()),
+                      child: const Text(
+                        "Main menu",
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Color.fromARGB(255, 73, 72, 72),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Center(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: content,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+        },
       ),
     );
   }

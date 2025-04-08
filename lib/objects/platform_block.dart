@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 import '../src/key_runner.dart';
 import '../managers/segment_manager.dart';
-import '../views/level_screen.dart';
+import 'package:key_runner/services/levelService.dart';
 
 class PlatformBlock extends SpriteComponent with HasGameReference<KeyRunner> {
   final Vector2 gridPosition;

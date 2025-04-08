@@ -14,7 +14,7 @@ import '../objects/ground_block.dart';
 import '../objects/key.dart';
 import 'package:flutter/material.dart';
 import '../src/components/level.dart';
-import '../views/level_screen.dart';
+import 'package:key_runner/services/levelService.dart';
 
 class KeyRunner extends FlameGame
     with HasCollisionDetection, TapCallbacks, HasKeyboardHandlerComponents {
@@ -31,6 +31,9 @@ class KeyRunner extends FlameGame
   int health = 1;
   bool isGameOver = false;
   bool levelComplete = false;
+  late final World world;
+  late final CameraComponent cameraComponent;
+  late Player player;
 
   final List<Level> levels = [
     Level(levelNumber: 1, segmentsToLoad: 5),
@@ -44,7 +47,14 @@ class KeyRunner extends FlameGame
   @override
   FutureOr<void> onLoad() async {
     await images.loadAll(['ground.png', 'key.png', 'platform.png']);
-    camera.viewfinder.anchor = Anchor.topLeft;
+    world = World();
+    cameraComponent = CameraComponent.withFixedResolution(
+      world: world,
+      width: 1080,
+      height: 800,
+    );
+
+    addAll([cameraComponent, world]);
     //debugMode = true;
     initializeGame(currentLevelData.levelNumber);
     ParallaxComponent cloudBackground = await loadParallaxComponent([
@@ -53,7 +63,7 @@ class KeyRunner extends FlameGame
       ParallaxImageData('Clouds4.png'),
     ], baseVelocity: Vector2(4, 0), velocityMultiplierDelta: Vector2(1.6, 1.0));
     super.onLoad();
-    add(cloudBackground);
+    camera.backdrop.add(cloudBackground);
   }
 
   @override
@@ -110,10 +120,13 @@ class KeyRunner extends FlameGame
     for (var i = 0; i <= segmentsToLoad; i++) {
       loadGameSegments(i, (640 * i).toDouble());
     }
-    world.add(Player(
-        position: Vector2(0, 800),
-        velocity: Vector2(0, 0),
-        hasJumped: hasJumped));
+    player = Player(
+      position: Vector2(0, 800),
+      velocity: Vector2(0, 0),
+      hasJumped: false,
+    );
+    world.add(player);
+    cameraComponent.follow(player);
   }
 
   void nextLevel() {

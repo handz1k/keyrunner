@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:key_runner/objects/ground_block.dart';
 import 'package:key_runner/objects/platform_block.dart';
 import 'package:key_runner/objects/key.dart';
-import 'package:key_runner/views/level_screen.dart';
+import 'package:key_runner/services/levelService.dart';
 import 'package:get/get.dart';
 import '../key_runner.dart';
 
