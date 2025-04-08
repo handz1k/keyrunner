@@ -23,11 +23,13 @@ class LevelCompleteScreen extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    "../assets/images/background.png",
+                    "assets/images/background.png",
                     fit: BoxFit.cover,
                   ),
                 ),
                 Center(
+                    child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1200),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +65,7 @@ class LevelCompleteScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                ))
               ],
             );
           } else {
@@ -71,50 +73,53 @@ class LevelCompleteScreen extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    "../assets/images/background.png",
+                    "assets/images/background.png",
                     fit: BoxFit.cover,
                   ),
                 ),
                 Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Well done, you passed the level!",
-                        style: TextStyle(
-                            fontSize: 32,
-                            color: Color.fromARGB(255, 73, 72, 72)),
-                      ),
-                      const Padding(padding: EdgeInsets.all(16)),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GameButton(
-                              text: "Levels",
-                              onPressed: () {
-                                game.reset();
-                                Get.to(LevelScreen());
-                              },
-                            ),
-                            const Padding(padding: EdgeInsets.all(16)),
-                            (levelService.completedLevels.length == 3)
-                                ? const Text('')
-                                : GameButton(
-                                    text: "Next level",
-                                    onPressed: () {
-                                      game.nextLevel();
-                                      Get.offAll(() => GameScreen());
-                                    },
-                                  )
-                          ],
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1200),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Well done, you passed the level!",
+                          style: TextStyle(
+                              fontSize: 32,
+                              color: Color.fromARGB(255, 73, 72, 72)),
                         ),
-                      ),
-                    ],
+                        const Padding(padding: EdgeInsets.all(16)),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GameButton(
+                                text: "Levels",
+                                onPressed: () {
+                                  game.reset();
+                                  Get.to(LevelScreen());
+                                },
+                              ),
+                              const Padding(padding: EdgeInsets.all(16)),
+                              (levelService.completedLevels.length == 3)
+                                  ? const Text('')
+                                  : GameButton(
+                                      text: "Next level",
+                                      onPressed: () {
+                                        game.nextLevel();
+                                        Get.offAll(() => GameScreen());
+                                      },
+                                    )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                )
               ],
             );
           }

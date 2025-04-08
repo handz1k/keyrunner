@@ -42,7 +42,7 @@ class GameScaffold extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    "../assets/images/background.png",
+                    "assets/images/background.png",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -61,11 +61,13 @@ class GameScaffold extends StatelessWidget {
                   ],
                 ),
                 Center(
+                    child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1200),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: content,
                   ),
-                ),
+                ))
               ],
             );
           } else {
@@ -73,7 +75,7 @@ class GameScaffold extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    "../assets/images/background.png",
+                    "assets/images/background.png",
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -9,7 +9,6 @@ import 'game_screen.dart';
 class GameOverScreen extends StatelessWidget {
   final KeyRunner game;
   const GameOverScreen({required this.game, super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +19,13 @@ class GameOverScreen extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    "../assets/images/background.png",
+                    "assets/images/background.png",
                     fit: BoxFit.cover,
                   ),
                 ),
                 Center(
+                    child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1200),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +67,7 @@ class GameOverScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                ))
               ],
             );
           } else {
@@ -74,11 +75,13 @@ class GameOverScreen extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    "../assets/images/background.png",
+                    "assets/images/background.png",
                     fit: BoxFit.cover,
                   ),
                 ),
                 Center(
+                    child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1200),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,7 +121,7 @@ class GameOverScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                ))
               ],
             );
           }

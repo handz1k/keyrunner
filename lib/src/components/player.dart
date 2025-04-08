@@ -23,7 +23,7 @@ class Player extends CircleComponent
   final Vector2 velocity;
   final double gravity = 9.8;
   final double force = 450;
-  final double termVelocity = 175;
+  final double termVelocity = 300;
   bool onGround = false;
   final double moveSpeed = 140;
   final Vector2 up = Vector2(0, -1);

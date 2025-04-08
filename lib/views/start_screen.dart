@@ -11,11 +11,13 @@ class StartScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "../assets/images/background.png",
+              "assets/images/background.png",
               fit: BoxFit.cover,
             ),
           ),
           Center(
+              child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1200),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,7 +34,7 @@ class StartScreen extends StatelessWidget {
                 )
               ],
             ),
-          ),
+          )),
         ],
       ),
     );
