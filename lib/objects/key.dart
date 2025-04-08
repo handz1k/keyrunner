@@ -27,7 +27,9 @@ class GoldKey extends SpriteComponent with HasGameReference<KeyRunner> {
       SizeEffect.by(
         Vector2(-25, -25),
         EffectController(
-          duration: 0.5,
+          duration: 1,
+          reverseDuration: 1,
+          infinite: true,
         ),
       ),
     );

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:key_runner/objects/ground_block.dart';
 import 'package:key_runner/objects/platform_block.dart';
 import 'package:key_runner/objects/key.dart';
+import 'package:key_runner/views/level_screen.dart';
+import 'package:get/get.dart';
 import '../key_runner.dart';
 
 class Player extends CircleComponent
@@ -25,6 +27,8 @@ class Player extends CircleComponent
   bool onGround = false;
   final double moveSpeed = 190;
   final Vector2 up = Vector2(0, -1);
+
+  final levelService = Get.find<LevelService>();
 
   @override
   void update(double dt) {
@@ -72,8 +76,7 @@ class Player extends CircleComponent
       }
     }
     if (other is GoldKey) {
-      other.removeFromParent();
-      game.keysCollected++;
+      game.levelComplete = true;
     }
 
     super.onCollision(intersectionPoints, other);

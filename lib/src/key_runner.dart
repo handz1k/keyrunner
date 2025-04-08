@@ -6,7 +6,8 @@ import 'package:flame/parallax.dart';
 import 'package:get/get.dart';
 import 'package:key_runner/objects/platform_block.dart';
 import 'package:key_runner/src/components/player.dart';
-import 'package:key_runner/views/gameover_screen.dart';
+import 'package:key_runner/views/game_over_screen.dart';
+import 'package:key_runner/views/level_complete_screen.dart';
 import 'dart:math' as math;
 import '../managers/segment_manager.dart';
 import '../objects/ground_block.dart';
@@ -27,9 +28,9 @@ class KeyRunner extends FlameGame
   double get width => size.x;
   double get height => size.y;
   bool hasJumped = false;
-  int keysCollected = 0;
   int health = 1;
   bool isGameOver = false;
+  bool levelComplete = false;
 
   final List<Level> levels = [
     Level(levelNumber: 1, segmentsToLoad: 5),
@@ -93,6 +94,10 @@ class KeyRunner extends FlameGame
       isGameOver = true;
       Get.off(() => GameOverScreen(game: this));
     }
+    if (levelComplete) {
+      levelService.completedLevels.add(currentLevelData.levelNumber - 1);
+      Get.off(() => LevelCompleteScreen(game: this));
+    }
     super.update(dt);
   }
 
@@ -111,8 +116,16 @@ class KeyRunner extends FlameGame
         hasJumped: hasJumped));
   }
 
+  void nextLevel() {
+    isGameOver = false;
+    health = 1;
+    if (currentLevelData.levelNumber < levels.length) {
+      levelService.currentLevel = currentLevelData.levelNumber + 1;
+      initializeGame(levelService.currentLevel);
+    }
+  }
+
   void reset() {
-    keysCollected = 0;
     isGameOver = false;
     health = 1;
     initializeGame(currentLevelData.levelNumber);

@@ -6,4 +6,6 @@ class Level {
     required this.levelNumber,
     required this.segmentsToLoad,
   });
+
+  get level => null;
 }
