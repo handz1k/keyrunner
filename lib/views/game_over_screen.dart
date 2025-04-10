@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:key_runner/src/key_runner.dart';
-import 'package:key_runner/views/level_screen.dart';
-import 'package:key_runner/widgets/game_button.dart';
+import '../src/key_runner.dart';
+import '../views/level_screen.dart';
+import '../widgets/game_button.dart';
 import '../models/breakpoints.dart';
 import 'game_screen.dart';
 

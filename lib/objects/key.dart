@@ -1,7 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:key_runner/src/key_runner.dart';
+import '../src/key_runner.dart';
 
 class GoldKey extends SpriteComponent with HasGameReference<KeyRunner> {
   final Vector2 gridPosition;

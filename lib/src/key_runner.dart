@@ -4,17 +4,18 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/parallax.dart';
 import 'package:get/get.dart';
-import 'package:key_runner/objects/platform_block.dart';
-import 'package:key_runner/src/components/player.dart';
-import 'package:key_runner/views/game_over_screen.dart';
-import 'package:key_runner/views/level_complete_screen.dart';
+import '../objects/platform_block.dart';
+import '../src/components/player.dart';
+import '../views/game_over_screen.dart';
+import '../views/level_complete_screen.dart';
 import 'dart:math' as math;
 import '../managers/segment_manager.dart';
 import '../objects/ground_block.dart';
 import '../objects/key.dart';
 import 'package:flutter/material.dart';
 import '../src/components/level.dart';
-import 'package:key_runner/services/levelService.dart';
+import '../services/levelService.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 
 class KeyRunner extends FlameGame
     with HasCollisionDetection, TapCallbacks, HasKeyboardHandlerComponents {
@@ -36,6 +37,7 @@ class KeyRunner extends FlameGame
   late Player player;
   var _dtSum = 0.0;
   final fixedRate = 1 / 60;
+  final storage = Hive.box("levels");
 
   final List<Level> levels = [
     Level(levelNumber: 1, segmentsToLoad: 5),
@@ -107,7 +109,7 @@ class KeyRunner extends FlameGame
       Get.off(() => GameOverScreen(game: this));
     }
     if (levelComplete) {
-      levelService.completedLevels.add(currentLevelData.levelNumber - 1);
+      levelService.completeLevel(currentLevelData.levelNumber - 1);
       Get.off(() => LevelCompleteScreen(game: this));
     }
     _dtSum += dt;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:key_runner/widgets/game_button.dart';
-import 'package:key_runner/views/level_screen.dart';
+import '../widgets/game_button.dart';
+import '../views/level_screen.dart';
 
 class StartScreen extends StatelessWidget {
   @override

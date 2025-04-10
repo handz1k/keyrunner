@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:key_runner/views/start_screen.dart';
-import 'package:key_runner/widgets/game_button.dart';
+import '../views/start_screen.dart';
+import '../widgets/game_button.dart';
 import '../models/breakpoints.dart';
 import '../services/levelService.dart';
 import 'game_screen.dart';
@@ -11,6 +11,7 @@ class LevelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    levelService.loadProgress();
     final levels = Iterable.generate(levelService.totalLevels).expand((level) {
       return [
         const Padding(padding: EdgeInsets.all(16)),
